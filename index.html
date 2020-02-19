@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Password generator</title>
+    <link rel="stylesheet" href="./css/css.css">
+</head>
+
+<body>
+    <h1>Password generator</h1>
+    <div class="form">
+        <form>
+            <div class="length">
+                <label for="lengthPassword">Length of your password</label>
+                <input type="range" min="8" , max="64" value="0" id="lengthPswd">
+            </div>
+            <div class="speChar">
+                <label for="speChar">Special characters</label>
+                <input type="checkbox" name="char" id="speChar">
+            </div>
+            <div class="uppChar">
+                <label for="upperCharacters">Upper characters</label>
+                <input type="checkbox" name="char" id="uppChar">
+            </div>
+            <div class="numbers">
+                <label for="num">Include numbers</label>
+                <input type="checkbox" name="char" id="num">
+            </div>
+            <div class="result">
+                <label for="pswdResult">Your password : </label>
+                <p id="pswdResult"></p>
+            </div>
+            <div class="button">
+                <button type="submit">Generate a password</button>
+            </div>
+        </form>
+    </div>
+</body>
+<script src="./js/passwordGenerator.js"></script>
+
+</html>
