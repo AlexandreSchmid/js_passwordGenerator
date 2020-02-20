@@ -14,11 +14,15 @@
         <form>
             <div class="length">
                 <label for="lengthPassword">Length of your password</label>
-                <input type="range" min="8" , max="64" value="0" id="lengthPswd">
+                <input type="range" min="0" , max="64" value="0" step="1" id="lengthPswd"><span id="sizePsw"></span>
             </div>
             <div class="speChar">
                 <label for="speChar">Special characters</label>
                 <input type="checkbox" name="char" id="speChar">
+            </div>
+            <div class="alphabet">
+                <label for="alphabet">Lowercase characters</label>
+                <input type="checkbox" name="char" id="alphabet">
             </div>
             <div class="uppChar">
                 <label for="upperCharacters">Upper characters</label>
