@@ -14,7 +14,7 @@
         <form>
             <div class="length">
                 <label for="lengthPassword">Length of your password</label>
-                <input type="range" min="0" , max="64" value="0" step="1" id="lengthPswd"><span id="sizePsw"></span>
+                <input type="range" min="8" , max="64" value="0" step="1" id="lengthPswd" oninput="document.getElementById('sizePsw').textContent=value"><span id="sizePsw"></span>
             </div>
             <div class="speChar">
                 <label for="speChar">Special characters</label>
