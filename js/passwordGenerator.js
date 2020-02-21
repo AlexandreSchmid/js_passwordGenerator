@@ -1,5 +1,6 @@
 var char = document.getElementsByName('char')
-var count = document.getElementById('lengthPswd').value
+var counter = 0
+var characters = []
 var psw = []
 
 var numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -9,31 +10,66 @@ var alphabetUpper = alphabet.map(function(x) {
 })
 var speChar = ['&', '~', '{', '[', '(', '-', '|', '`', "\\", '_', '^', '@', ')', ']', '=', '}', '+', ',', '?', ';', '.', ':', '!', '§', '%', 'µ', '*', '£', '$']
 
-document.querySelector('form').addEventListener('submit', function(e, numbers, alphabet, speChar) {
+document.querySelector('form').addEventListener('submit', function(e) {
     e.preventDefault()
-    for (var i = 0; i < Number(count); i++) {
-        generate(numbers, alphabet, speChar, psw)
+    var count = document.getElementById('lengthPswd').value
+    for (var i = 0; i < count; i++) {
+        generate(numbers, alphabet, speChar, characters)
+        if (i == counter) {
+            break
+        }
     }
+    funnel(characters, psw, count)
+    document.getElementById('pswdResult').textContent = psw.join('')
+    console.log(psw.length)
+    characters = []
+    psw = []
 })
 
-function generate() {
-    if (char[0].checked) {
+var dico = {
+    0: function(speChar) {
         var randSpeChar = Math.random() * speChar.length
-        psw.push(speChar[Math.round(randSpeChar)])
-    }
-    if (char[1].checked) {
+        return speChar[Math.round(randSpeChar)]
+    },
+    1: function(alphabet) {
         var randAlphabet = Math.random() * alphabet.length
-        psw.push(alphabet[Math.round(randAlphabet)])
-    }
-    if (char[2].checked) {
+        return alphabet[Math.round(randAlphabet)]
+    },
+    2: function(alphabetUpper) {
         var randAlphabet = Math.random() * alphabetUpper.length
         var letter = alphabetUpper[Math.round(randAlphabet)]
-        psw.push(letter)
-    }
-    if (char[3].checked) {
+        return letter
+    },
+    3: function(numbers) {
         var randNum = Math.random() * numbers.length
-        psw.push(numbers[Math.round(randNum)])
+        return numbers[Math.round(randNum)]
     }
 }
 
-generate(numbers, alphabet, speChar)
+function generate() {
+    if (char[0].checked) {
+        characters.push(dico[0](speChar))
+        counter++
+    }
+    if (char[1].checked) {
+        characters.push(dico[1](alphabet))
+        counter++
+    }
+    if (char[2].checked) {
+        characters.push(dico[2](alphabetUpper))
+        counter++
+    }
+    if (char[3].checked) {
+        characters.push(dico[3](numbers))
+        counter++
+    }
+
+}
+
+function funnel(characters, psw, count) {
+    for (var i = 0; i < count; i++) {
+        var rand = Math.random() * count
+        psw.push(characters[Math.round(rand)])
+        characters.reverse().pop()
+    }
+}
