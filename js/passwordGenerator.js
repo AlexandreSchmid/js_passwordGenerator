@@ -9,23 +9,6 @@ var alphabetUpper = alphabet.map(function(x) {
     return x.toUpperCase()
 })
 var speChar = ['&', '~', '{', '[', '(', '-', '|', '`', "\\", '_', '^', '@', ')', ']', '=', '}', '+', ',', '?', ';', '.', ':', '!', '§', '%', 'µ', '*', '£', '$']
-
-document.querySelector('form').addEventListener('submit', function(e) {
-    e.preventDefault()
-    var count = document.getElementById('lengthPswd').value
-    for (var i = 0; i < count; i++) {
-        generate(numbers, alphabet, speChar, characters)
-        if (i == counter) {
-            break
-        }
-    }
-    funnel(characters, psw, count)
-    document.getElementById('pswdResult').textContent = psw.join('')
-    console.log(psw.length)
-    characters = []
-    psw = []
-})
-
 var dico = {
     0: function(speChar) {
         var randSpeChar = Math.random() * speChar.length
@@ -73,3 +56,19 @@ function funnel(characters, psw, count) {
         characters.reverse().pop()
     }
 }
+
+document.querySelector('form').addEventListener('submit', function(e) {
+    e.preventDefault()
+    var count = document.getElementById('lengthPswd').value
+    for (var i = 0; i < count; i++) {
+        generate(numbers, alphabet, speChar, characters)
+        if (i == counter) {
+            break
+        }
+    }
+    funnel(characters, psw, count)
+    document.getElementById('finalPsw').value = psw.join('')
+    console.log(psw.length)
+    characters = []
+    psw = []
+})

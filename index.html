@@ -13,31 +13,33 @@
     <div class="form">
         <form>
             <div class="length">
-                <label for="lengthPassword">Length of your password</label>
-                <input type="range" min="8" , max="64" value="0" step="1" id="lengthPswd" oninput="document.getElementById('sizePsw').textContent=value"><span id="sizePsw"></span>
-            </div>
+                <label for="lengthPassword">Length of your password</label><br>
+                <input type="range" min="8" , max="64" value="0" step="1" id="lengthPswd" oninput="document.getElementById('sizePsw').textContent=value+' characters'"><span id="sizePsw">8 characters</span>
+            </div><br>
             <div class="speChar">
                 <label for="speChar">Special characters</label>
                 <input type="checkbox" name="char" id="speChar">
-            </div>
+            </div><br>
             <div class="alphabet">
                 <label for="alphabet">Lowercase characters</label>
                 <input type="checkbox" name="char" id="alphabet">
-            </div>
+            </div><br>
             <div class="uppChar">
                 <label for="upperCharacters">Upper characters</label>
                 <input type="checkbox" name="char" id="uppChar">
-            </div>
+            </div><br>
             <div class="numbers">
                 <label for="num">Include numbers</label>
                 <input type="checkbox" name="char" id="num">
-            </div>
-            <div class="result">
-                <label for="pswdResult">Your password : </label>
-                <p id="pswdResult"></p>
-            </div>
+            </div><br>
             <div class="button">
                 <button type="submit">Generate a password</button>
+            </div><br>
+            <div class="result">
+                <label for="pswdResult">Your password : </label>
+                <p id="pswdResult">
+                    <input type="text" id="finalPsw" value="" readonly>
+                </p>
             </div>
         </form>
     </div>
