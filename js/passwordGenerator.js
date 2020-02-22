@@ -1,74 +1,63 @@
-var char = document.getElementsByName('char')
-var counter = 0
-var characters = []
-var psw = []
-
+// Characters in 4 differents arrays
 var numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 var alphabet = ['a', 'z', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'q', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'w', 'x', 'c', 'v', 'b', 'n']
 var alphabetUpper = alphabet.map(function(x) {
     return x.toUpperCase()
 })
-var speChar = ['&', '~', '{', '[', '(', '-', '|', '`', "\\", '_', '^', '@', ')', ']', '=', '}', '+', ',', '?', ';', '.', ':', '!', '§', '%', 'µ', '*', '£', '$']
-var dico = {
-    0: function(speChar) {
-        var randSpeChar = Math.random() * speChar.length
-        return speChar[Math.round(randSpeChar)]
-    },
-    1: function(alphabet) {
-        var randAlphabet = Math.random() * alphabet.length
-        return alphabet[Math.round(randAlphabet)]
-    },
-    2: function(alphabetUpper) {
-        var randAlphabet = Math.random() * alphabetUpper.length
-        var letter = alphabetUpper[Math.round(randAlphabet)]
-        return letter
-    },
-    3: function(numbers) {
-        var randNum = Math.random() * numbers.length
-        return numbers[Math.round(randNum)]
-    }
-}
+var speChar = ['&', '~', '#', '{', '[', '(', '-', '|', '`', "\\", '_', '^', '@', ')', ']', '=', '}', '+', ',', '?', ';', '.', ':', '!', '§', '%', 'µ', '*', '£', '$']
 
-function generate() {
+function generate(numbers, alphabet, speChar, count, char) {
+    // Empty array (contains characters arrays after if checked)
+    var characters = []
+    var items = ''
+    var psw = ''
+        // Control if a type of character is check into the form and 
+        // add the following list into the characters type list
+        // otherwise remove into the characters type list
     if (char[0].checked) {
-        characters.push(dico[0](speChar))
-        counter++
+        characters.push(speChar)
+    } else {
+        characters.splice(0, 1)
     }
     if (char[1].checked) {
-        characters.push(dico[1](alphabet))
-        counter++
+        characters.push(alphabet)
+    } else {
+        characters.splice(1, 1)
     }
     if (char[2].checked) {
-        characters.push(dico[2](alphabetUpper))
-        counter++
+        characters.push(alphabetUpper)
+    } else {
+        characters.splice(2, 1)
     }
     if (char[3].checked) {
-        characters.push(dico[3](numbers))
-        counter++
+        characters.push(numbers)
+    } else {
+        characters.splice(3, 1)
     }
-
-}
-
-function funnel(characters, psw, count) {
-    for (var i = 0; i < count; i++) {
-        var rand = Math.random() * count
-        psw.push(characters[Math.round(rand)])
-        characters.reverse().pop()
-    }
-}
-
-document.querySelector('form').addEventListener('submit', function(e) {
-    e.preventDefault()
-    var count = document.getElementById('lengthPswd').value
-    for (var i = 0; i < count; i++) {
-        generate(numbers, alphabet, speChar, characters)
-        if (i == counter) {
-            break
+    // Put characters inside a single string
+    for (var i = 0; i < characters.length; i++) {
+        for (j = 0; j < characters[i].length; j++) {
+            items += characters[i][j]
         }
     }
-    funnel(characters, psw, count)
-    document.getElementById('finalPsw').value = psw.join('')
-    console.log(psw.length)
-    characters = []
-    psw = []
+    // Build the password
+    for (var i = 0; i < count; i++) {
+        items.split("").reverse().join("") // reverse to limit double characters
+        psw += items[Math.round(Math.random() * items.length)]
+    }
+    return psw
+}
+// Trigged by a click
+document.querySelector('form').addEventListener('submit', function(e) {
+    e.preventDefault()
+        // Select the length setted into the form
+    var count = document.getElementById('lengthPswd').value
+    var char = document.getElementsByName('char') // select checkboxes
+        // Generate the password and verify if 'undefined' characters aren't 
+        // into the generated password
+    var pswFinal = generate(numbers, alphabet, speChar, count, char)
+    if (!pswFinal.includes('undefined')) {
+        document.getElementById('finalPsw').value = pswFinal
+        console.log(pswFinal.length)
+    }
 })

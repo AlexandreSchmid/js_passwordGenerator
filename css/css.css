@@ -40,6 +40,14 @@ button {
     font-size: 20px;
 }
 
+#instruction {
+    font-size: small;
+}
+
+#range {
+    text-align: center;
+}
+
 h1 {
     font-family: monospace;
     font-size: 30px;
